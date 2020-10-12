@@ -1,53 +1,57 @@
-main {
-    background-color: #f5f5f5;
-    height: 75vh ;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    font-family: Georgia, 'Times New Roman', Times, serif;
- form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
+form {
+  width: auto;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  padding-left: 5vw;
+  padding-right: 5vw;
+
   label {
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    margin: 1rem 0;
     font-size: 1.2em;
     padding: 0.5vh;
+
+    &.methods {
+      span {
+        cursor: pointer;
+        margin-top: 1vh;
+        padding: 0.25rem 0.5rem;
+        background-color: #0f6b3d;
+        border: none;
+        color: white;
+        padding: 1vh 2vh;
+        text-decoration: none;
+        font-size: 1em;
+        font-family: Georgia, "Times New Roman", Times, serif;
+
+        &:hover,
+        &.active {
+          background: #210024;
+        }
+      }
+    }
   }
-  input[type=text] {
+  input[type="text"] {
     border: none;
     border-radius: 1vh;
     padding: 2vh 5vh;
   }
-  input[type=radio] {
-    background-color: #616965;
-    border: none;
-    color: white;
-    text-decoration: none;
-    margin: 1vw;
-    cursor: pointer;
-    font-size: 1.5em;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-  }
-  input[type=submit] {
-    background-color: #200f6b;
-    padding: 1vh 2vh;
-    border: none;
-    color: white;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 1.5em;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-  }
-  p {
-    width: 100vw;
-    height: 350vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;    background-color: #cacccb;
-    border-radius: 1vh;
-  }
+}
+
+input[type="submit"] {
+  background-color: #0f6b3d;
+  border: none;
+  color: white;
+  padding: 2vh 7vh;
+  text-decoration: none;
+  margin: 1vw;
+  cursor: pointer;
+  font-size: 1.5em;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
