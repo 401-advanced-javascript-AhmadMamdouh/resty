@@ -1,104 +1,75 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-// import './App.scss';
+import axios from 'axios';
+import md5 from 'md5';
 
 
 import Header from './components/header/header';
 import Form from './components/form/form';
+import Footer from './components/footer/footer';
 import Results from './components/results/results';
 import History from './components/history/history';
-import HistoryPage from './components/history/history-page';
-import Footer from './components/footer/footer';
 
+class App extends React.Component { 
 
-class App extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
-    this.state = { loading: false, count: 0, results: {}, history: {}, method: '', url: '', body: '' };
+    this.state = {
+      requestData:null,
+      resultsIn: null,
+      loading: false,
+      pastSearches: JSON.parse(localStorage.getItem('pastSearches')),
+      method:'GET',
+      // url:'http://',
+      // data:'',
+    };
   }
 
-  formHandler = (headers, results, loading) => {
-    const result = { headers, response: results };
-    this.setState({ loading, count: results.count, results: result });
+  
+  talkToApi = async (requestObj) => {
+
+    this.toggleLoading()
+    this.setState({ url: requestObj.url, data: requestObj.data});
+    this.setState({ method: requestObj.method})
+
+    try {
+      let results = await axios(requestObj);
+      this.getResults(results);
+      this.saveToLocalStorage(requestObj)
+    } catch(e) {
+      console.log(e)
+      this.toggleLoading();
+      this.setState({resultsIn:'error', requestData:'Bad Request'});
+    }
   }
 
-  renderHistory = (history) => {
-    this.setState({ history }, function () {
-      console.log('ppppppp', this.state);
-    });
+  toggleLoading = () => this.setState({loading: !this.state.loading});
+
+  getResults = (requestData) => {
+    this.toggleLoading();
+    this.setState({ requestData, resultsIn:'results' })
   }
 
-  historyRecall = (e) => {
-    let recalled = e.currentTarget.innerText;
-    recalled = recalled.split('*');
-    this.setState({
-      method: recalled[1],
-      url: recalled[3],
-      body: recalled[5],
-    }, function () {
-      // get the form elements and fill them with the recalled (clicked) history item
-      document.getElementById('textInput').setAttribute('value', recalled[3]);
-      document.getElementById('bodyTextInput').setAttribute('value', (recalled[5]) ? (recalled[5]) : '');
-      
-      // get the input after setting the attribute
-      let textInput =  document.getElementById('textInput');
-      let bodyTextInput =  document.getElementById('bodyTextInput');
-    
-      // trigger the onChange functions on the input to set the state in the form
-      textInput.dispatchEvent(new Event('input', { bubbles: true }));
-      bodyTextInput.dispatchEvent(new Event('input', { bubbles: true }));
+  saveToLocalStorage = async (requestObj) => {
+    const hash = md5(JSON.stringify(requestObj))
 
-    });
+    await this.setState({pastSearches: { ...this.state.pastSearches, [hash]: requestObj }});
 
+    let stringifiedObj = JSON.stringify(this.state.pastSearches);
 
-    // this.setState({ history:{url: recalled[3], body: recalled[5]} });
-
-  };
-
-  loading = (bool) => {
-    this.setState({ loading: bool });
+    localStorage.setItem('pastSearches', stringifiedObj);
   }
 
-  render() {
-    return (
-      <>
-        <Header />
-        <main>
-          <Route exact path="/resty">
-
-            <Form prompt='GO!'
-              handler={this.formHandler}
-              url={this.state.url}
-              method={this.state.method}
-              renderHistory={this.renderHistory}
-              progress={this.loading}
-            />
-
-            <Results
-              response={this.state.results}
-              headers={this.state.results.headers}
-              progress={this.state.loading}
-              history={this.state.history}
-              historyRecall={this.historyRecall}
-            />
-
-            <History
-              history={this.state.history}
-              historyRecall={this.historyRecall}
-              renderHistory={this.renderHistory}
-            />
-
-          </Route>
-
-          <Route exact path="/history">
-            <HistoryPage historyList={this.state.history} />
-          </Route>
-
-        </main>
-        <Footer />
-      </>
-    );
-  }
+  render = () => (
+    <div className="App">
+      <Header />
+      <main>
+        <Form handleInput={this.talkToApi} defaultUrl={this.state.url} defaultMethod={this.state.method} defaultData={this.state.data}  />
+        <History pastSearches={this.state.pastSearches} talkToApi={this.talkToApi}/>
+        <Results data={this.state.requestData} resultsIn={this.state.resultsIn} loading={this.state.loading} />
+      </main>
+      <Footer />
+    </div>
+  );
 }
 
 export default App;
