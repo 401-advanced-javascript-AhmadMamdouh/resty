@@ -5,6 +5,9 @@ week-06 401d4
 
 ## Project : RESTy
 
+in this application you can get/put/post/delete data from API ,
+also you can see the history of hitting API and the results .
+
 ### Author : Ahmad AlHabrawi 
 
 ## Setup
@@ -20,4 +23,5 @@ week-06 401d4
 * Any tests of note?
 * Describe any tests that you did not complete, skipped, etc
 ## UML
-![UML](./resty/public/class-26.jpg)
+![UML-class26](./public/class-26.jpg)
+![UML-class-28&29](./public/lab28.jpg)

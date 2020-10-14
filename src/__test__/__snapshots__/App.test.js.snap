@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Form/> properly display the users input in the output area on form submit 1`] = `
+<form
+  id="form"
+  onSubmit={[Function]}
+>
+  <label>
+    <span>
+      URL: 
+    </span>
+    <input
+      className=""
+      id="textInput"
+      name="url"
+      onChange={[Function]}
+      type="text"
+    />
+    <span>
+      Body: 
+    </span>
+    <input
+      className={Object {}}
+      id="bodyTextInput"
+      name="body"
+      onChange={[Function]}
+      type="text"
+    />
+    <button
+      type="submit"
+    />
+  </label>
+  <label
+    className="methods"
+  >
+    <span
+      className=""
+      id="GET"
+      name="method"
+      onClick={[Function]}
+    >
+      GET
+      <span
+        className=""
+        id="POST"
+        name="method"
+        onClick={[Function]}
+      >
+        POST
+      </span>
+      <span
+        className=""
+        id="PUT"
+        name="method"
+        onClick={[Function]}
+      >
+        PUT
+      </span>
+      <span
+        className=""
+        id="DELETE"
+        name="method"
+        onClick={[Function]}
+      >
+        DELETE
+      </span>
+    </span>
+  </label>
+</form>
+`;
