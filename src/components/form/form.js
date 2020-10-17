@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import './form.scss'
 
 
@@ -21,6 +22,7 @@ class Form extends React.Component {
   sendInput = () => this.props.handleInput(this.state);
 
   render = () => (
+    <Route exact path="/">
     <>
       <section className="form">
 
@@ -60,6 +62,7 @@ class Form extends React.Component {
         <textarea onChange={this.setData} defaultValue={this.props.defaultData}></textarea>
       </fieldset>
     </>
+    </Route>
   );
 }
 

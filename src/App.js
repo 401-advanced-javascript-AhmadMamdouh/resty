@@ -1,13 +1,14 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 import md5 from 'md5';
-
 
 import Header from './components/header/header';
 import Form from './components/form/form';
 import Footer from './components/footer/footer';
 import Results from './components/results/results';
 import History from './components/history/history';
+import Help from './components/help/help';
 
 class App extends React.Component { 
 
@@ -19,12 +20,9 @@ class App extends React.Component {
       loading: false,
       pastSearches: JSON.parse(localStorage.getItem('pastSearches')),
       method:'GET',
-      // url:'http://',
-      // data:'',
     };
   }
 
-  
   talkToApi = async (requestObj) => {
 
     this.toggleLoading()
@@ -60,16 +58,18 @@ class App extends React.Component {
   }
 
   render = () => (
-    <div className="App">
+    <BrowserRouter className="App">
       <Header />
       <main>
+        <Help />
         <Form handleInput={this.talkToApi} defaultUrl={this.state.url} defaultMethod={this.state.method} defaultData={this.state.data}  />
         <History pastSearches={this.state.pastSearches} talkToApi={this.talkToApi}/>
         <Results data={this.state.requestData} resultsIn={this.state.resultsIn} loading={this.state.loading} />
       </main>
       <Footer />
-    </div>
+    </BrowserRouter>
   );
 }
+
 
 export default App;
