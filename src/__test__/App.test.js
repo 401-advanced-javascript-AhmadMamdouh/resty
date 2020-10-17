@@ -57,6 +57,7 @@ describe('resty tests', () => {
     const header = screen.getAllByRole('heading');
     expect(header[1]).toHaveTextContent('Help')
   })
+  
   it('loads page with GET button checked', async () => {
     render(<App />);
     fireEvent.click(screen.getByTestId('homelink'));
