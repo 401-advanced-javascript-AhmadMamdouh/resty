@@ -24,5 +24,5 @@ week-06 401d4
 On the website, enter a api request url, select a method, and press submit. The results will be displayed beneath. Make different types of requests by select GET, POST, PUT, or DELETE, and fill out the body as needed. There is a spinner to watch while the results load. Past searches will be saved in Local Storage. If you click on old requests, it will make get the results again, and fill out the form (mostly) to match the request. If you change an input field, this feature will not work as well.
 
 ## UML
-![UML](./resty/public/class-26.jpg)
-![UML-Lab-28](.resty/public/lab28.jpg)
+![UML](./public/class-26.jpg)
+![UML-Lab-28](./public/lab28.jpg)
